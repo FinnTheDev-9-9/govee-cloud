@@ -39,7 +39,7 @@ class GoveeLoginError(Exception):
 
 _LOGGER = logging.getLogger(__name__)
 
-APP_VERSION = "7.4.30"
+APP_VERSION = "7.4.10"
 
 # Lightweight in-process caches to avoid excessive logins
 _APP_LOGIN_CACHE: dict[str, tuple[dict, float]] = {}
@@ -49,7 +49,7 @@ _CACHE_TTL_SEC = 6 * 60 * 60  # 6 hours
 
 def _ua() -> str:
     return (
-        f"GoveeHome/{APP_VERSION} (com.ihoment.GoVeeSensor; build:2; iOS 16.5.0) Alamofire/5.6.4"
+        f"GoveeHome/{APP_VERSION} (com.ihoment.GoVeeSensor; build:2; iOS 18.4.0) Alamofire/5.10.2"
     )
 
 
