@@ -14,12 +14,12 @@ from typing import Any, Dict
 
 import requests
 
-APP_VERSION = "7.4.22" #updated version from fork
+APP_VERSION = "7.4.30" #updated version from fork
 _LOGGER = logging.getLogger(__name__)
 
 
 def _ua() -> str:
-    return f"GoveeHome/{APP_VERSION} (com.ihoment.GoVeeSensor; build:2; iOS 16.5.0) Alamofire/5.6.4"
+    return f"GoveeHome/{APP_VERSION} (com.ihoment.GoVeeSensor; build:2; iOS 16.5.0) Alamofire/5.12.0"
 
 # Simple in-process token cache per email to avoid repeated logins
 _PLATFORM_TOKEN_CACHE: dict[str, tuple[str, str, float]] = {}
