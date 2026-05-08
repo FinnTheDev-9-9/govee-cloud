@@ -40,7 +40,7 @@ class PlatformAppClient:
         import uuid
         self._client_id = uuid.uuid5(uuid.NAMESPACE_DNS, self._email).hex
         resp = requests.post(
-            "https://app2.govee.com/account/rest/account/v1/login",
+            "https://app2.govee.com/account/rest/account/v2/login",
             json={"email": self._email, "password": self._password, "client": self._client_id},
             timeout=30,
         )
@@ -91,7 +91,7 @@ class PlatformAppClient:
             return await loop.run_in_executor(None, _do)
 
     async def control_colorwc(self, sku: str, device: str, *, r: int, g: int, b: int, kelvin: int = 0) -> bool:
-        url = "https://openapi.api.govee.com/router/api/v1/device/control"
+        url = "https://openapi.api.govee.com/router/api/v2/device/control"
         import uuid as _uuid
         if kelvin == 0:
             rgb_int = (int(r) & 0xFF) << 16 | (int(g) & 0xFF) << 8 | (int(b) & 0xFF)
@@ -123,7 +123,7 @@ class PlatformAppClient:
             return False
 
     async def control_turn(self, sku: str, device: str, on: bool) -> bool:
-        url = "https://openapi.api.govee.com/router/api/v1/device/control"
+        url = "https://openapi.api.govee.com/router/api/v2/device/control"
         import uuid as _uuid
         body = {
             "requestId": str(_uuid.uuid4()),
@@ -148,7 +148,7 @@ class PlatformAppClient:
             return False
 
     async def control_brightness(self, sku: str, device: str, percent: int) -> bool:
-        url = "https://openapi.api.govee.com/router/api/v1/device/control"
+        url = "https://openapi.api.govee.com/router/api/v2/device/control"
         import uuid as _uuid
         body = {
             "requestId": str(_uuid.uuid4()),
@@ -181,9 +181,9 @@ class PlatformAppClient:
         import uuid as _uuid
         body = {"requestId": str(_uuid.uuid4()), "payload": {}}
         # Primary endpoint
-        url1 = "https://openapi.api.govee.com/router/api/v1/device/list"
+        url1 = "https://openapi.api.govee.com/router/api/v2/device/list"
         # Fallback endpoint some accounts use
-        url2 = "https://openapi.api.govee.com/router/api/v1/user/devices"
+        url2 = "https://openapi.api.govee.com/router/api/v2/user/devices"
         try:
             data = await self._post(url1, body)
             return data
