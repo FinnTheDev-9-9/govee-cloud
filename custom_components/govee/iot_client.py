@@ -39,7 +39,7 @@ class GoveeLoginError(Exception):
 
 _LOGGER = logging.getLogger(__name__)
 
-APP_VERSION = "5.6.01"
+APP_VERSION = "7.4.30"
 
 # Lightweight in-process caches to avoid excessive logins
 _APP_LOGIN_CACHE: dict[str, tuple[dict, float]] = {}
@@ -89,7 +89,7 @@ def _extract_token(payload: Dict[str, Any]) -> str | None:
 
 def _login(email: str, password: str) -> Dict[str, Any]:
     resp = requests.post(
-        "https://app2.govee.com/account/rest/account/v1/login",
+        "https://app2.govee.com/account/rest/account/v2/login",
         json={"email": email, "password": password, "client": _client_id(email)},
         timeout=30,
     )
@@ -110,7 +110,7 @@ def _login(email: str, password: str) -> Dict[str, Any]:
 
 def _get_iot_key(token: str, email: str) -> Dict[str, Any]:
     resp = requests.get(
-        "https://app2.govee.com/app/v1/account/iot/key",
+        "https://app2.govee.com/app/v2/account/iot/key",
         headers={
             "Authorization": f"Bearer {token}",
             "appVersion": APP_VERSION,
@@ -872,7 +872,7 @@ class GoveeIoTClient:
             pass
 
         resp = requests.post(
-            "https://app2.govee.com/device/rest/devices/v1/list",
+            "https://app2.govee.com/device/rest/devices/v2/list",
             headers={
                 "Authorization": f"Bearer {token}",
                 "appVersion": APP_VERSION,
